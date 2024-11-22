@@ -1,7 +1,7 @@
 import pygame
 
 SIZE_BLOCK = 20
-FRAME_COLOR = (0, 255, 154)
+FRAME_COLOR = (0, 255, 204)
 WHITE = (255, 255, 255)
 BLUE = (204, 255, 255)
 COUNT_BLOCKS = 20
@@ -20,12 +20,20 @@ pygame.display.set_caption('Snake')
 timer = pygame.time.Clock()
 
 
+class SnakeBlock:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
 def draw_blocks(color, row, column):
     pygame.draw.rect(screen, color, (SIZE_BLOCK + column * SIZE_BLOCK + MARGIN * (column + 1),
                                      HEADER_MARGIN + SIZE_BLOCK + row * SIZE_BLOCK + MARGIN * (row + 1),
                                      SIZE_BLOCK,
                                      SIZE_BLOCK))
 
+
+snake_block = [SnakeBlock(9, 9)]
 
 while True:
 
@@ -44,6 +52,7 @@ while True:
                 color = WHITE
 
             draw_blocks(color, row, column)
-
+    for block in snake_block:
+        draw_blocks(SNAKE_COLOR, block.x, block.y)
 
     pygame.display.flip()
