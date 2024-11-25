@@ -1,96 +1,51 @@
 import pygame
-import sys
 
-SIZE_BLOCK = 20
-FRAME_COLOR = (0, 255, 204)
-WHITE = (255, 255, 255)
-BLUE = (204, 255, 255)
-COUNT_BLOCKS = 20
-SNAKE_COLOR = (0, 102, 0)
-HEADER_COLOR = (0, 204, 153)
-HEADER_MARGIN = 70
-MARGIN = 1
+white = (255, 255, 255)
+black = (0, 0, 0)
+red = (255, 0, 0)
 
-size = [SIZE_BLOCK * COUNT_BLOCKS + 2 * SIZE_BLOCK + MARGIN * COUNT_BLOCKS,
-        SIZE_BLOCK * COUNT_BLOCKS + 2 * SIZE_BLOCK + MARGIN * COUNT_BLOCKS + HEADER_MARGIN]
+display = pygame.display.set_mode((800, 600))
+pygame.display.set_caption("Змейка")
 
-print(size)
+x1 = 300
+y1 = 300
 
-screen = pygame.display.set_mode(size)
-pygame.display.set_caption('Snake')
-timer = pygame.time.Clock()
+x1_change = 0
+y1_change = 0
 
+clock = pygame.time.Clock()
 
-class SnakeBlock:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+game_over = False
 
-    def is_inside(self):
-        return 0 <= self.x < SIZE_BLOCK and 0 <= self.y < SIZE_BLOCK
-
-
-def draw_blocks(color, row, column):
-    pygame.draw.rect(screen, color, (SIZE_BLOCK + column * SIZE_BLOCK + MARGIN * (column + 1),
-                                     HEADER_MARGIN + SIZE_BLOCK + row * SIZE_BLOCK + MARGIN * (row + 1),
-                                     SIZE_BLOCK,
-                                     SIZE_BLOCK))
-
-
-snake_blocks = [SnakeBlock(9, 8), SnakeBlock(9, 9), SnakeBlock(9, 10)]
-
-d_row = 0
-d_col = 1
-
-while True:
-
+while not game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+            game_over = True
 
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP and d_col != 0:
-                d_row = -1
-                d_col = 0
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                x1_change = -10
+                y1_change = 0
 
-            elif event.key == pygame.K_DOWN and d_col != 0:
-                d_row = 1
-                d_col = 0
+            elif event.key == pygame.K_RIGHT:
+                x1_change = 10
+                y1_change = 0
 
-            elif event.key == pygame.K_LEFT and d_row != 0:
-                d_col = -1
-                d_row = 0
+            elif event.key == pygame.K_UP:
+                x1_change = 0
+                y1_change = -10
 
-            elif event.key == pygame.K_RIGHT and d_row != 0:
-                d_row = 0
-                d_col = 1
+            elif event.key == pygame.K_DOWN:
+                x1_change = 0
+                y1_change = 10
 
-    screen.fill(FRAME_COLOR)
-    pygame.draw.rect(screen, HEADER_COLOR, [0, 0, size[0], 0], HEADER_MARGIN)
+    x1 += x1_change
+    y1 += y1_change
+    display.fill(white)
 
-    for row in range(COUNT_BLOCKS):
-        for column in range(COUNT_BLOCKS):
-            if (row + column) % 2 == 0:
-                color = BLUE
-            else:
-                color = WHITE
+    pygame.draw.rect(display, black, [x1, y1, 20, 20])
+    pygame.display.update()
+    clock.tick(20)
 
-            draw_blocks(color, row, column)
-
-    head = snake_blocks[-1]
-    if not head.is_inside():
-        print('crash')
-        pygame.quit()
-        sys.exit()
-
-    for block in snake_blocks:
-        draw_blocks(SNAKE_COLOR, block.x, block.y)
-
-    head = snake_blocks[-1]
-    new_head = SnakeBlock(head.x + d_row, head.y + d_col)
-    snake_blocks.append(new_head)
-    snake_blocks.pop(0)
-
-    pygame.display.flip()
-    timer.tick(2)
+pygame.quit()
+quit()
