@@ -5,7 +5,7 @@ The basic logic of the game is that the snake eats an apple and grows in size, 1
 There is also a game score, the ability to resume the game by pressing the R button, or close the game by pressing the Q button
 
 What is needed to run the program: 
-Library pygame
+Library pygame.
 To install it, use the command pip install pygame in the terminal in the directory Snake
 
 I plan to make a big project out of this:
