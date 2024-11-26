@@ -54,6 +54,7 @@ def game_loop():
             display.fill(white)
             message('Вы проиграли, нажмите Q для выхода или R для повторной игры', red)
             pygame.display.update()
+
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_q:
@@ -61,6 +62,11 @@ def game_loop():
                         game_close = False
                     if event.key == pygame.K_r:
                         game_loop()
+
+                if event.type == pygame.QUIT:
+                    game_close = False
+                    game_over = True
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -83,8 +89,14 @@ def game_loop():
                     x1_change = 0
                     y1_change = snake_block
 
-        if x1 > dis_width or x1 < 0 or y1 > dis_heigth or y1 < 0:
-            game_close = True
+        if x1 > dis_width:
+            x1 = 0
+        if x1 < 0:
+            x1 = dis_width
+        if y1 > dis_heigth:
+            y1 = 0
+        if y1 < 0:
+            y1 = dis_heigth
 
         x1 += x1_change
         y1 += y1_change
