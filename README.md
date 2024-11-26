@@ -4,7 +4,7 @@ This is a snake game.
 The basic logic of the game is that the snake eats an apple and grows in size, 1 apple = +1 snake length.
 There is also a game score, the ability to resume the game by pressing the R button, or close the game by pressing the Q button
 
-What is needed to run the program:
+What is needed to run the program: 
 Library pygame
 To install it, use the command pip install pygame in the terminal in the directory Snake
 
