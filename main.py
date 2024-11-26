@@ -46,6 +46,7 @@ def game_loop():
     y1_change = 0
     snake_list = []
     length_of_snake = 1
+    direction = "right"
     food_x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
     food_y = round(random.randrange(0, dis_heigth - snake_block) / 10.0) * 10.0
 
@@ -67,27 +68,30 @@ def game_loop():
                     game_close = False
                     game_over = True
 
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game_over = True
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
+                if event.key == pygame.K_LEFT and direction != "right":
                     x1_change = -snake_block
                     y1_change = 0
+                    direction = "left"
 
-                elif event.key == pygame.K_RIGHT:
+                elif event.key == pygame.K_RIGHT and direction != "left":
                     x1_change = snake_block
                     y1_change = 0
+                    direction = "right"
 
-                elif event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP and direction != "down":
                     x1_change = 0
                     y1_change = -snake_block
+                    direction = "up"
 
-                elif event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_DOWN and direction != "up":
                     x1_change = 0
                     y1_change = snake_block
+                    direction = "down"
 
         if x1 > dis_width:
             x1 = 0
@@ -127,5 +131,6 @@ def game_loop():
 
     pygame.quit()
     quit()
+
 
 game_loop()
