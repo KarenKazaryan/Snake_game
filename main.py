@@ -73,22 +73,22 @@ def game_loop():
                 game_over = True
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT and direction != "right":
+                if (event.key == pygame.K_LEFT or event.key == pygame.K_a) and direction != "right":
                     x1_change = -snake_block
                     y1_change = 0
                     direction = "left"
 
-                elif event.key == pygame.K_RIGHT and direction != "left":
+                elif (event.key == pygame.K_RIGHT or event.key == pygame.K_d) and direction != "left":
                     x1_change = snake_block
                     y1_change = 0
                     direction = "right"
 
-                elif event.key == pygame.K_UP and direction != "down":
+                elif (event.key == pygame.K_UP or event.key == pygame.K_w) and direction != "down":
                     x1_change = 0
                     y1_change = -snake_block
                     direction = "up"
 
-                elif event.key == pygame.K_DOWN and direction != "up":
+                elif (event.key == pygame.K_DOWN or event.key == pygame.K_s) and direction != "up":
                     x1_change = 0
                     y1_change = snake_block
                     direction = "down"
