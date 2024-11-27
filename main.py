@@ -15,7 +15,7 @@ dis_heigth = 600
 display = pygame.display.set_mode((dis_width, dis_heigth))
 pygame.display.set_caption("Змейка")
 
-snake_block = 10
+snake_block = 20
 clock = pygame.time.Clock()
 snake_speed = 15
 font_style = pygame.font.SysFont("bahnschrift", 20)
@@ -47,8 +47,8 @@ def game_loop():
     snake_list = []
     length_of_snake = 1
     direction = "right"
-    food_x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
-    food_y = round(random.randrange(0, dis_heigth - snake_block) / 10.0) * 10.0
+    food_x = round(random.randrange(0, dis_width - snake_block) / snake_block) * snake_block
+    food_y = round(random.randrange(0, dis_heigth - snake_block) / snake_block) * snake_block
 
     while not game_over:
         while game_close == True:
@@ -123,8 +123,8 @@ def game_loop():
         pygame.display.update()
 
         if x1 == food_x and y1 == food_y:
-            food_x = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
-            food_y = round(random.randrange(0, dis_heigth - snake_block) / 10.0) * 10.0
+            food_x = round(random.randrange(0, dis_width - snake_block) / snake_block) * snake_block
+            food_y = round(random.randrange(0, dis_heigth - snake_block) / snake_block) * snake_block
             length_of_snake += 1
 
         clock.tick(snake_speed)
